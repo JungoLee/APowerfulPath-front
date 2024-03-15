@@ -1,0 +1,35 @@
+@use "../abstracts" as *;
+
+.d-block {
+  display: block;
+}
+.d-none {
+  display: none;
+}
+.pc-none {
+  display: none;
+}
+@media screen and (max-width: 768px) {
+  .mo-none {
+    display: none;
+  }
+  .pc-none {
+    display: block;
+  }
+}
+
+.flex-box {
+  display: flex;
+  &.align-center {
+    align-items: center;
+  }
+  &.just-center {
+    justify-content: center;
+  }
+  &.just-between {
+    justify-content: space-between;
+  }
+  &.flex-column {
+    flex-direction: column;
+  }
+}
