@@ -1,0 +1,740 @@
+@use "../abstracts" as *;
+
+.pc-show {
+  display: block;
+}
+.mo-show {
+  display: none !important;
+}
+.section-tit {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  .type-tit {
+    color: #9ec5fe;
+    @include rem(font-size, 20);
+    font-weight: 500;
+  }
+  .type-sub-tit {
+    @include rem(margin-top, 25);
+    color: #fff;
+    @include rem(font-size, 50);
+    font-weight: 100;
+    font-family: "Montserrat";
+    strong {
+      font-weight: 800;
+    }
+  }
+}
+
+.highlight {
+  position: relative;
+  color: #fff;
+  @include rem(font-size, 34);
+  font-weight: 100;
+  font-family: "Montserrat";
+  z-index: 1;
+  strong {
+    font-weight: 700;
+  }
+  &::after {
+    content: "";
+    width: 0;
+    height: 20px;
+    display: inline-block;
+    background: #0d6efd;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    z-index: -1;
+    transition: 0.2s all;
+  }
+  &.on {
+    &::after {
+      width: 100%;
+    }
+  }
+}
+
+.guide-list {
+  li {
+    position: relative;
+    width: 100%;
+    color: #fff;
+    @include rem(padding-left, 20);
+    @include rem(font-size, 20);
+    font-weight: 300;
+    line-height: 1.6;
+    text-align: left;
+    &::before {
+      content: "";
+      position: absolute;
+      @include rem(top, 10);
+      left: 0;
+      @include rem(width, 8);
+      @include rem(height, 8);
+      border-radius: 100%;
+      background: #0d6efd;
+    }
+    + li {
+      @include rem(margin-top, 3);
+    }
+  }
+}
+
+.header {
+  display: flex;
+  @include rem(height, 80);
+  @include rem(padding, 0 290);
+  background: #111418;
+  align-items: center;
+  .gnb-wrap {
+    display: flex;
+    width: 100%;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .logo-area {
+    h1 {
+      position: relative;
+      @include rem(padding-left, 55);
+      &::before {
+        content: "";
+        position: absolute;
+        @include rem(top, -9);
+        left: 0;
+        @include rem(width, 40);
+        @include rem(height, 38);
+        background: url(../images/img_logo01.png) no-repeat;
+        background-size: 100% auto;
+      }
+    }
+    .logo {
+      position: relative;
+      display: block;
+      @include rem(width, 245);
+      @include rem(height, 19);
+      @include rem(padding-left, 55);
+      background: url(../images/img_logo02.png) no-repeat;
+      background-size: 100% auto;
+    }
+  }
+  .gnb-area {
+    display: flex;
+    .gnb-list {
+      display: flex;
+      align-items: center;
+      .one-depth {
+        a {
+          color: #fff;
+        }
+        + .one-depth {
+          @include rem(margin-left, 90);
+        }
+      }
+    }
+  }
+  .utill-btn-area {
+    display: flex;
+    align-items: center;
+    a {
+      display: inline-flex;
+      @include rem(width, 90);
+      @include rem(height, 36);
+      color: #fff;
+      @include rem(border-radius, 5);
+      background: #0d6efd;
+      align-items: center;
+      justify-content: center;
+      + a {
+        @include rem(margin-left, 10);
+      }
+    }
+    .btn-lang-box {
+      @include rem(margin-left, 20);
+      .btn-lang {
+        position: relative;
+        width: auto;
+        @include rem(min-width, 60);
+        @include rem(padding-right, 18);
+        @include rem(border-radius, 100);
+        background: #232a31;
+        &::after {
+          content: "";
+          position: absolute;
+          @include rem(top, 17);
+          @include rem(right, 12);
+          @include rem(width, 7);
+          @include rem(height, 4);
+          background: url(../images/ico_arrow.png) no-repeat;
+          background-size: 100% auto;
+        }
+      }
+      .lang-list {
+        position: absolute;
+        @include rem(top, 65);
+        @include rem(padding, 10 0);
+        @include rem(border, 1 solid #9ec5fe);
+        @include rem(border-radius, 10);
+        z-index: 1;
+        .list-item {
+          color: #fff;
+          @include rem(font-size, 12);
+          font-weight: 500;
+          font-family: "Montserrat";
+          @include rem(padding, 5 21);
+        }
+      }
+      &.on {
+        .btn-lang {
+          &::after {
+            transform: rotate(-180deg);
+            transition: all 0.3s;
+          }
+        }
+      }
+    }
+  }
+}
+
+.section-area {
+  &.appropriate {
+    position: relative;
+    width: 100%;
+    @include rem(padding, 200 0 280);
+    background: #111418 url(../images/bg_section01.png) no-repeat;
+    background-size: 100% 100%;
+    .text-area {
+      text-align: center;
+      span,
+      strong {
+        color: #fff;
+      }
+      .tit-box {
+        span {
+          display: block;
+          @include rem(font-size, 100);
+          font-weight: 800;
+          font-family: "Montserrat";
+          &:last-child {
+            font-weight: 100;
+          }
+        }
+      }
+      .txt-box {
+        @include rem(font-size, 30);
+        @include rem(margin-top, 118);
+        line-height: 1.4;
+        color: #fff;
+        font-weight: 100;
+        font-family: "Montserrat";
+        strong {
+          font-weight: 700;
+        }
+      }
+    }
+  }
+  &.product {
+    position: relative;
+    .section-tit {
+      @include rem(padding, 120 0 240);
+      background: #0d6efd;
+    }
+    .product-list-area {
+      @include rem(padding-bottom, 240);
+      background: url(../images/bg_section02.png) no-repeat;
+      background-size: 100% 100%;
+      .card-list {
+        position: relative;
+        @include rem(top, -145);
+        display: flex;
+        @include rem(padding, 0 40);
+        align-items: stretch;
+        justify-content: center;
+      }
+      .card-item {
+        display: flex;
+        @include rem(width, 380);
+        @include rem(padding, 63 50 60);
+        @include rem(border-radius, 20);
+        background: #111418;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        .ico {
+          display: block;
+          @include rem(width, 153);
+          @include rem(height, 195);
+          &.ico01 {
+            background: url(../images/product_item01.png) no-repeat;
+            background-size: 100% auto;
+          }
+          &.ico02 {
+            background: url(../images/product_item02.png) no-repeat;
+            background-size: 100% auto;
+          }
+          &.ico03 {
+            background: url(../images/product_item03.png) no-repeat;
+            background-size: 100% auto;
+          }
+        }
+        .card-tit {
+          display: block;
+          @include rem(margin-top, 60);
+          color: #9ec5fe;
+          @include rem(font-size, 30);
+          font-weight: 500;
+        }
+        .card-txt {
+          display: block;
+          @include rem(margin-top, 60);
+          color: #fff;
+          @include rem(font-size, 20);
+          font-weight: 300;
+          line-height: 1.6;
+        }
+        .guide-list {
+          @include rem(margin-top, 60);
+        }
+        + .card-item {
+          @include rem(margin-left, 70);
+        }
+      }
+    }
+  }
+  &.marketing {
+    background: #111418;
+    .section-tit {
+      @include rem(margin-top, -120);
+    }
+    .plan-area {
+      @include rem(margin-top, 100);
+      @include rem(padding, 0 290 181);
+      background: #111418 url(../images/bg_section03.png) no-repeat;
+      background-size: 100% 100%;
+      .plan-list {
+        display: flex;
+        align-items: center;
+        + .plan-list {
+          @include rem(margin-top, 50);
+        }
+        &:nth-child(2) {
+          flex-direction: row-reverse;
+          .plan-box {
+            flex-direction: row-reverse;
+            @include rem(margin, 0 100 0 0);
+            .guide-list {
+              @include rem(margin, 0 114 0 0);
+            }
+          }
+        }
+      }
+      .plan-tit {
+        color: #0d6efd;
+        @include rem(font-size, 45);
+        font-weight: 100;
+        font-family: "Montserrat";
+        strong {
+          display: flex;
+          @include rem(font-size, 100);
+          font-weight: 700;
+        }
+      }
+      .plan-box {
+        display: flex;
+        @include rem(width, 720);
+        @include rem(min-height, 310);
+        @include rem(margin-left, 100);
+        @include rem(border, 1px solid transparent);
+        @include rem(border-radius, 20);
+        background: #111418;
+        background-image: linear-gradient(#111418, #111418),
+          linear-gradient(to right, #0257d5 0%, #111418 100%);
+        background-origin: border-box;
+        background-clip: content-box, border-box;
+        align-items: center;
+        justify-content: center;
+        .plan-price {
+          color: #9ec5fe;
+          @include rem(font-size, 60);
+          font-weight: 700;
+        }
+        .guide-list {
+          @include rem(margin-left, 114);
+          .total {
+            padding-left: 0;
+            @include rem(margin-top, 20);
+            @include rem(font-size, 30);
+            &::before {
+              display: none;
+            }
+          }
+        }
+        &:hover {
+          background: #0257d5;
+          background-image: none;
+          .guide-list {
+            li {
+              &::before {
+                background: #9ec5fe;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+  &.platform {
+    position: relative;
+    @include rem(padding, 150 290 250);
+    background: #111418 url(../images/bg_section04.png) no-repeat;
+    background-size: 100% 100%;
+    .tit-area {
+      .type-tit {
+        position: relative;
+        display: block;
+        @include rem(padding-top, 206);
+        color: #fff;
+        @include rem(font-size, 100);
+        font-weight: 100;
+        font-family: "Montserrat";
+        strong {
+          display: flex;
+          font-weight: 800;
+        }
+        &::before {
+          content: "";
+          position: absolute;
+          top: 0;
+          left: 0;
+          @include rem(width, 132);
+          @include rem(height, 126);
+          background: url(../images/img_logo01_large.png) no-repeat;
+          background-size: 100% auto;
+        }
+      }
+    }
+    .section-tit {
+      align-items: flex-end;
+      .type-txt {
+        @include rem(margin-top, 80);
+        color: #fff;
+        @include rem(font-size, 30);
+        text-align: right;
+      }
+    }
+    .type-copy {
+      position: absolute;
+      @include rem(bottom, 30);
+      left: 50%;
+      width: 100%;
+      color: #fff;
+      @include rem(font-size, 12);
+      font-weight: 400;
+      font-family: "Montserrat";
+      opacity: 0.5;
+      transform: translate(-50%, 0);
+      text-align: center;
+    }
+  }
+}
+
+@media (min-width: 1024px) and (max-width: 1500px) {
+  .header {
+    @include rem(padding, 0 45);
+  }
+  .section-area {
+    &.marketing {
+      .plan-area {
+        @include rem(padding, 0 112 181);
+      }
+    }
+  }
+}
+
+// mo
+@media (max-width: 1024px) {
+  .pc-show {
+    display: none !important;
+  }
+  .mo-show {
+    display: block !important;
+  }
+  .highlight {
+    @include rem(font-size, 18);
+  }
+  .section-tit {
+    .type-tit {
+      @include rem(font-size, 14);
+    }
+    .type-sub-tit {
+      @include rem(margin-top, 14);
+      @include rem(font-size, 24);
+    }
+  }
+  .guide-list {
+    li {
+      @include rem(padding-left, 16);
+      @include rem(font-size, 16);
+      &:before {
+        @include rem(width, 6);
+        @include rem(height, 6);
+      }
+    }
+  }
+  .powerful-container {
+    @include rem(margin-top, -1);
+  }
+  .header {
+    @include rem(padding, 0 30);
+    .logo-area {
+      h1 {
+        padding-left: 0;
+        .logo {
+          @include rem(width, 36);
+          @include rem(height, 34);
+          padding-left: 0;
+          background: url(../images/img_logo01_mo.png) no-repeat;
+          background-size: 100% auto;
+        }
+        &::before {
+          display: none;
+        }
+      }
+    }
+    .utill-btn-area {
+      .btn-menu {
+        @include rem(width, 28);
+        @include rem(height, 17);
+        border-radius: 0;
+        background: url(../images/ico_menu.png) no-repeat;
+        background-size: 100% auto;
+      }
+    }
+  }
+  .section-area {
+    &.appropriate {
+      @include rem(padding, 110 0);
+      background: #111418 url(../images/bg_section01_mo.png) no-repeat;
+      background-size: 100% 100%;
+      .text-area {
+        .tit-box {
+          span {
+            @include rem(font-size, 34);
+          }
+        }
+        .txt-box {
+          @include rem(font-size, 18);
+        }
+      }
+    }
+    &.product {
+      @include rem(padding, 80 20);
+      background: #0d6efd;
+      .section-tit {
+        padding: 0;
+        background: none;
+      }
+      .product-list-area {
+        @include rem(margin-top, 40);
+        padding: 0;
+        background: none;
+        .card-list {
+          top: 0;
+          padding: 0;
+          flex-direction: column;
+        }
+        .card-item {
+          width: 100%;
+          .card-tit {
+            @include rem(margin-top, 50);
+            @include rem(font-size, 22);
+          }
+          .card-txt {
+            @include rem(margin-top, 50);
+            @include rem(font-size, 16);
+          }
+          .guide-list {
+            @include rem(margin-top, 50);
+          }
+          .ico {
+            @include rem(width, 153);
+            @include rem(height, 195);
+            &.ico01 {
+              background: url(../images/product_item01_mo.png) no-repeat;
+              background-size: 100% 100%;
+            }
+            &.ico02 {
+              background: url(../images/product_item02_mo.png) no-repeat;
+              background-size: 100% 100%;
+            }
+            &.ico03 {
+              background: url(../images/product_item03_mo.png) no-repeat;
+              background-size: 100% 100%;
+            }
+          }
+          + .card-item {
+            @include rem(margin, 40 0 0);
+          }
+        }
+      }
+    }
+    &.marketing {
+      background: #111418 url(../images/bg_section03_mo.png) bottom no-repeat;
+      background-size: 100% auto;
+      .section-tit {
+        margin-top: 0;
+        @include rem(padding, 80 0 200);
+        background: url(../images/bg_section02_mo.png) no-repeat;
+        background-size: 100% auto;
+      }
+      .plan-area {
+        position: relative;
+        @include rem(top, -160);
+        margin: 0;
+        @include rem(padding, 0 20);
+        background: none;
+        .plan-list {
+          @include rem(border, 1px solid transparent);
+          @include rem(border-radius, 20);
+          background-image: linear-gradient(#111418, #111418),
+            linear-gradient(to bottom, #0257d5 0%, #111418 100%);
+          background-origin: border-box;
+          background-clip: content-box, border-box;
+          flex-direction: column;
+          &:nth-child(2) {
+            flex-direction: column;
+            .plan-box {
+              margin: 0;
+              flex-direction: column;
+              .guide-list {
+                margin: 0;
+              }
+            }
+          }
+        }
+        .plan-tit {
+          width: 100%;
+          @include rem(padding-top, 50);
+          @include rem(font-size, 35);
+          text-align: center;
+          .num {
+            @include rem(margin-bottom, -20);
+            @include rem(font-size, 80);
+            justify-content: center;
+          }
+        }
+        .plan-box {
+          width: 100%;
+          @include rem(margin-top, 50);
+          @include rem(padding-bottom, 60);
+          min-height: auto;
+          background: none;
+          background-image: none;
+          flex-direction: column;
+          @include rem(margin-left, 0);
+          .plan-price {
+            @include rem(font-size, 45);
+          }
+          .guide-list {
+            @include rem(margin, 50 0 0);
+            .total {
+              @include rem(font-size, 22);
+            }
+          }
+        }
+      }
+    }
+    &.platform {
+      @include rem(padding, 0 40 130);
+      background: url(../images/bg_section04_mo.png) bottom no-repeat;
+      background-size: 100% 100%;
+      .tit-area {
+        @include rem(padding-top, 80);
+        .type-tit {
+          @include rem(padding-top, 70);
+          @include rem(font-size, 34);
+          &::before {
+            @include rem(width, 47);
+            @include rem(height, 47);
+            background: url(../images/img_logo01_mo.png) bottom no-repeat;
+            background-size: 100% auto;
+          }
+        }
+      }
+      .section-tit {
+        .type-txt {
+          @include rem(margin-top, 40);
+          @include rem(font-size, 18);
+          line-height: 1.4;
+        }
+      }
+    }
+  }
+  .mo-menu {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background: #111418;
+    z-index: 10;
+    .menu-header {
+      display: flex;
+      @include rem(height, 80);
+      @include rem(padding, 0 30);
+      align-items: center;
+      justify-content: space-between;
+      .logo {
+        display: block;
+        @include rem(width, 36);
+        @include rem(height, 34);
+        background: url(../images/img_logo01_mo_on.png) no-repeat;
+        background-size: 100% auto;
+      }
+      .btn-close {
+        @include rem(width, 14);
+        @include rem(height, 14);
+        background: url(../images/ico_close.png) no-repeat;
+        background-size: 100% auto;
+      }
+    }
+    .depth-area {
+      @include rem(padding-bottom, 50);
+      .depth-list {
+        li {
+          a {
+            display: block;
+            @include rem(padding, 25 0);
+            color: #fff;
+            @include rem(font-size, 22);
+            font-weight: 500;
+            text-align: center;
+          }
+        }
+      }
+      .utill-btn-area {
+        display: flex;
+        @include rem(margin-top, 45);
+        align-items: center;
+        justify-content: center;
+        a {
+          display: inline-flex;
+          @include rem(width, 114);
+          @include rem(height, 46);
+          color: #fff;
+          @include rem(font-size, 16);
+          font-weight: 500;
+          @include rem(border-radius, 5);
+          background: #0d6efd;
+          align-items: center;
+          justify-content: center;
+          + a {
+            @include rem(margin-left, 10);
+          }
+        }
+      }
+    }
+  }
+}
