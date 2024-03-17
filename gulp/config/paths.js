@@ -43,7 +43,7 @@ const settingPaths = {
   folderFonts: "fonts",
   folderAssets: "assets",
   folderPublic: "public",
-  serverIndex: "cl.html",
+  serverIndex: "index.html",
   projectDirName: path.basename(path.resolve()),
   folderBackup: "_backup",
   fileBackup: [

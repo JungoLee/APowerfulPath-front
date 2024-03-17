@@ -6,6 +6,43 @@
 .mo-show {
   display: none !important;
 }
+[tabindex="0"] {
+  cursor: pointer;
+}
+.y-hide {
+  overflow: hidden;
+}
+.ui-set-y {
+  transform: translateY(100%);
+  transition: transform 0.4s cubic-bezier(0.63, -0.01, 0.21, 0.96);
+  // transition: transform 0.4s cubic-bezier(0.63, -0.01, 0.09, 1.5);
+  display: inline-block;
+  &.active {
+    transform: translateY(0);
+  }
+}
+.ui-set-scale {
+  transform: scale(0.9);
+  opacity: 0;
+  transition: transform 0.8s cubic-bezier(0.63, -0.01, 0.21, 0.96),
+    opacity 0.5s ease-out;
+  // transition: transform 0.4s cubic-bezier(0.63, -0.01, 0.09, 1.5);
+  &.active {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+.ui-set-y-type02 {
+  transform: translateY(1rem);
+  opacity: 0;
+  transition: transform 0.4s cubic-bezier(0.63, -0.01, 0.21, 0.96),
+    opacity 0.4s cubic-bezier(0.63, -0.01, 0.21, 0.96);
+  // transition: transform 0.4s cubic-bezier(0.63, -0.01, 0.09, 1.5);
+  &.active {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
 .section-tit {
   position: relative;
   display: flex;
@@ -15,16 +52,16 @@
   .type-tit {
     color: #9ec5fe;
     @include rem(font-size, 20);
-    font-weight: 500;
+    line-height: 1;
   }
   .type-sub-tit {
     @include rem(margin-top, 25);
     color: #fff;
     @include rem(font-size, 50);
-    font-weight: 100;
-    font-family: "Montserrat";
+    font-family: "Mont-Thin";
+    line-height: 0.75;
     strong {
-      font-weight: 800;
+      font-family: "Mont-Bold";
     }
   }
 }
@@ -34,15 +71,11 @@
   color: #fff;
   @include rem(font-size, 34);
   font-weight: 100;
-  font-family: "Montserrat";
   z-index: 1;
-  strong {
-    font-weight: 700;
-  }
   &::after {
     content: "";
     width: 0;
-    height: 20px;
+    @include rem(height, 20);
     display: inline-block;
     background: #0d6efd;
     position: absolute;
@@ -51,9 +84,10 @@
     z-index: -1;
     transition: 0.2s all;
   }
-  &.on {
+  &.active {
     &::after {
       width: 100%;
+      transition-delay: 0.8s;
     }
   }
 }
@@ -65,7 +99,7 @@
     color: #fff;
     @include rem(padding-left, 20);
     @include rem(font-size, 20);
-    font-weight: 300;
+    font-family: "Neo-Light";
     line-height: 1.6;
     text-align: left;
     &::before {
@@ -77,9 +111,21 @@
       @include rem(height, 8);
       border-radius: 100%;
       background: #0d6efd;
+      transition: background-color 0.2s ease-out;
     }
     + li {
       @include rem(margin-top, 3);
+    }
+  }
+  &.right-type {
+    li {
+      padding-left: 0;
+      @include rem(padding-right, 20);
+      text-align: right;
+      &::before {
+        left: auto;
+        right: 0;
+      }
     }
   }
 }
@@ -87,12 +133,18 @@
 .header {
   display: flex;
   @include rem(height, 80);
-  @include rem(padding, 0 290);
-  background: #111418;
   align-items: center;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 3;
   .gnb-wrap {
+    width: 1340px;
+    @include rem(padding, 0 20);
+    max-width: 100%;
+    margin: 0 auto;
     display: flex;
-    width: 100%;
     align-items: center;
     justify-content: space-between;
   }
@@ -108,7 +160,7 @@
         @include rem(width, 40);
         @include rem(height, 38);
         background: url(../images/img_logo01.png) no-repeat;
-        background-size: 100% auto;
+        background-size: cover;
       }
     }
     .logo {
@@ -123,15 +175,23 @@
   }
   .gnb-area {
     display: flex;
+    @include rem(width, 435);
+    @include rem(padding, 0 20);
+
     .gnb-list {
       display: flex;
       align-items: center;
+      width: 100%;
+      justify-content: space-between;
       .one-depth {
         a {
           color: #fff;
+          transition: color 0.2s ease-out;
+          &:hover {
+            color: #0d6efd;
+          }
         }
         + .one-depth {
-          @include rem(margin-left, 90);
         }
       }
     }
@@ -139,6 +199,7 @@
   .utill-btn-area {
     display: flex;
     align-items: center;
+    @include rem(gap, 10);
     a {
       display: inline-flex;
       @include rem(width, 90);
@@ -148,8 +209,9 @@
       background: #0d6efd;
       align-items: center;
       justify-content: center;
-      + a {
-        @include rem(margin-left, 10);
+      transition: background-color 0.2s ease-out;
+      &:hover {
+        background-color: #0257d5;
       }
     }
     .btn-lang-box {
@@ -169,7 +231,7 @@
           @include rem(width, 7);
           @include rem(height, 4);
           background: url(../images/ico_arrow.png) no-repeat;
-          background-size: 100% auto;
+          background-size: cover;
         }
       }
       .lang-list {
@@ -205,7 +267,8 @@
     width: 100%;
     @include rem(padding, 200 0 280);
     background: #111418 url(../images/bg_section01.png) no-repeat;
-    background-size: 100% 100%;
+    background-size: cover;
+    background-position: center;
     .text-area {
       text-align: center;
       span,
@@ -213,31 +276,55 @@
         color: #fff;
       }
       .tit-box {
-        span {
+        .text {
           display: block;
-          @include rem(font-size, 100);
-          font-weight: 800;
-          font-family: "Montserrat";
+          color: #fff;
+          font-size: 0;
+          span {
+            display: inline-block;
+            @include rem(font-size, 100);
+          }
           &:last-child {
             font-weight: 100;
+            @include rem(font-size, 100);
           }
         }
       }
       .txt-box {
         @include rem(font-size, 30);
-        @include rem(margin-top, 118);
+        @include rem(margin-top, 90);
         line-height: 1.4;
         color: #fff;
-        font-weight: 100;
-        font-family: "Montserrat";
+        font-family: "Neo-Light";
+        .text {
+          &:nth-child(1) {
+            .ui-set-y {
+              transition-delay: 0.2s;
+            }
+          }
+          &:nth-child(2) {
+            .ui-set-y {
+              transition-delay: 0.3s;
+            }
+          }
+          &:nth-child(3) {
+            .ui-set-y {
+              transition-delay: 0.4s;
+            }
+          }
+        }
         strong {
-          font-weight: 700;
+          font-family: "Neo-Bold";
+          &.en-bold {
+            font-family: "Mont-Bold";
+          }
         }
       }
     }
   }
   &.product {
     position: relative;
+    background-color: #111418;
     .section-tit {
       @include rem(padding, 120 0 240);
       background: #0d6efd;
@@ -245,7 +332,8 @@
     .product-list-area {
       @include rem(padding-bottom, 240);
       background: url(../images/bg_section02.png) no-repeat;
-      background-size: 100% 100%;
+      background-size: 192rem auto;
+      background-position: top center;
       .card-list {
         position: relative;
         @include rem(top, -145);
@@ -257,27 +345,56 @@
       .card-item {
         display: flex;
         @include rem(width, 380);
-        @include rem(padding, 63 50 60);
+        @include rem(padding, 0 0 60);
         @include rem(border-radius, 20);
         background: #111418;
         flex-direction: column;
         align-items: center;
         text-align: center;
+        overflow: hidden;
+        position: relative;
+        .box {
+          position: relative;
+          z-index: 2;
+        }
+        .bg {
+          position: absolute;
+          width: 200%;
+          padding-top: 200%;
+          border-radius: 50%;
+          transform: translate(-50%, -50%) scale(0);
+          z-index: 1;
+          top: 0;
+          left: 0;
+          transition: transform 0.4s ease-in-out;
+          box-shadow: 0 0 2rem 2rem #0257d5;
+          &.active {
+            transform: translate(-50%, -50%) scale(2.2);
+          }
+          background-color: #0257d5;
+        }
         .ico {
           display: block;
-          @include rem(width, 153);
-          @include rem(height, 195);
+          background-size: cover;
+          @include rem(height, 240);
+          background-position: bottom center;
+          background-repeat: no-repeat;
+          margin: 0 auto;
+          transition-delay: 0.2s;
           &.ico01 {
-            background: url(../images/product_item01.png) no-repeat;
-            background-size: 100% auto;
+            @include rem(width, 137);
+            @include rem(background-size, auto 195);
+            background-image: url(../images/product_item01.png);
           }
           &.ico02 {
-            background: url(../images/product_item02.png) no-repeat;
-            background-size: 100% auto;
+            @include rem(width, 140);
+            @include rem(background-size, auto 192);
+            background-image: url(../images/product_item02.png);
           }
           &.ico03 {
-            background: url(../images/product_item03.png) no-repeat;
-            background-size: 100% auto;
+            @include rem(width, 153);
+            @include rem(background-size, auto 195);
+            background-image: url(../images/product_item03.png);
           }
         }
         .card-tit {
@@ -285,38 +402,85 @@
           @include rem(margin-top, 60);
           color: #9ec5fe;
           @include rem(font-size, 30);
-          font-weight: 500;
+          font-family: "Neo-Medium";
+          transition-delay: 0.2s;
         }
         .card-txt {
           display: block;
           @include rem(margin-top, 60);
           color: #fff;
           @include rem(font-size, 20);
-          font-weight: 300;
           line-height: 1.6;
+          font-family: "Neo-light";
+          transition-delay: 0.2s;
+        }
+        .box {
+          width: 100%;
+          @include rem(padding, 0 16);
         }
         .guide-list {
           @include rem(margin-top, 60);
+          max-width: 100%;
+          li {
+            transition-delay: 0.2s;
+          }
         }
         + .card-item {
           @include rem(margin-left, 70);
+        }
+        &:nth-child(1) {
+        }
+        &:nth-child(2) {
+          .guide-list {
+            @include rem(width, 272);
+            margin: 0 auto;
+            @include rem(margin-top, 60);
+          }
+        }
+        &:nth-child(3) {
+          .guide-list {
+            @include rem(width, 170);
+            margin: 0 auto;
+            @include rem(margin-top, 60);
+          }
         }
       }
     }
   }
   &.marketing {
     background: #111418;
+    .bg {
+      position: absolute;
+      width: 200%;
+      padding-top: 200%;
+      border-radius: 50%;
+      transform: translate(-50%, -50%) scale(0);
+      z-index: 1;
+      top: 0;
+      left: 0;
+      transition: transform 0.4s ease-in-out;
+      box-shadow: 0 0 2rem 2rem #0257d5;
+      background-color: #0257d5;
+      &.active {
+        transform: translate(-50%, -50%) scale(2.2);
+      }
+    }
     .section-tit {
       @include rem(margin-top, -120);
+      position: relative;
+      overflow: hidden;
     }
     .plan-area {
       @include rem(margin-top, 100);
       @include rem(padding, 0 290 181);
       background: #111418 url(../images/bg_section03.png) no-repeat;
-      background-size: 100% 100%;
+      background-size: 192rem auto;
+      background-position: center bottom;
+
       .plan-list {
         display: flex;
         align-items: center;
+
         + .plan-list {
           @include rem(margin-top, 50);
         }
@@ -325,6 +489,8 @@
           .plan-box {
             flex-direction: row-reverse;
             @include rem(margin, 0 100 0 0);
+            background-image: linear-gradient(#111418, #111418),
+              linear-gradient(270deg, #0257d5 0%, #111418 100%);
             .guide-list {
               @include rem(margin, 0 114 0 0);
             }
@@ -335,11 +501,13 @@
         color: #0d6efd;
         @include rem(font-size, 45);
         font-weight: 100;
-        font-family: "Montserrat";
+        font-family: "Mont-Thin";
+        position: relative;
+        z-index: 2;
         strong {
           display: flex;
           @include rem(font-size, 100);
-          font-weight: 700;
+          font-family: "Mont-ExtraBold";
         }
       }
       .plan-box {
@@ -349,20 +517,29 @@
         @include rem(margin-left, 100);
         @include rem(border, 1px solid transparent);
         @include rem(border-radius, 20);
-        background: #111418;
+        background-color: #111418;
         background-image: linear-gradient(#111418, #111418),
-          linear-gradient(to right, #0257d5 0%, #111418 100%);
+          linear-gradient(90deg, #0257d5 0%, #111418 100%);
         background-origin: border-box;
         background-clip: content-box, border-box;
         align-items: center;
         justify-content: center;
+        position: relative;
+        overflow: hidden;
+        z-index: 2;
         .plan-price {
           color: #9ec5fe;
           @include rem(font-size, 60);
-          font-weight: 700;
+          font-family: "Mont-Bold";
+          position: relative;
+          z-index: 2;
+          @include rem(width, 220);
+          text-align: center;
         }
         .guide-list {
           @include rem(margin-left, 114);
+          position: relative;
+          z-index: 2;
           .total {
             padding-left: 0;
             @include rem(margin-top, 20);
@@ -371,10 +548,17 @@
               display: none;
             }
           }
+          .text {
+            color: #fff;
+            text-align: center;
+            @include rem(font-size, 20);
+            display: block;
+            font-family: "Neo-Light";
+            line-height: 1.75;
+          }
         }
         &:hover {
-          background: #0257d5;
-          background-image: none;
+          // background-image: none;
           .guide-list {
             li {
               &::before {
@@ -388,60 +572,75 @@
   }
   &.platform {
     position: relative;
-    @include rem(padding, 150 290 250);
+    width: 100%;
+    max-width: 100%;
+    @include rem(padding-top, 150);
+    @include rem(padding-bottom, 30);
     background: #111418 url(../images/bg_section04.png) no-repeat;
-    background-size: 100% 100%;
+    background-size: cover;
+    background-position: top center;
     .tit-area {
+      @include rem(width, 1380);
+      max-width: 100%;
+      @include rem(padding, 0 20);
+      margin: 0 auto;
       .type-tit {
         position: relative;
         display: block;
-        @include rem(padding-top, 206);
+        @include rem(padding-top, 200);
         color: #fff;
-        @include rem(font-size, 100);
+        @include rem(font-size, 90);
         font-weight: 100;
-        font-family: "Montserrat";
+        font-family: "Mont-Light";
         strong {
           display: flex;
-          font-weight: 800;
+          font-family: "Mont-Bold";
         }
-        &::before {
-          content: "";
-          position: absolute;
-          top: 0;
-          left: 0;
-          @include rem(width, 132);
-          @include rem(height, 126);
-          background: url(../images/img_logo01_large.png) no-repeat;
-          background-size: 100% auto;
-        }
+      }
+      .img-box {
+        position: absolute;
+        top: 0;
+        left: 0;
       }
     }
     .section-tit {
       align-items: flex-end;
+      @include rem(width, 1380);
+      max-width: 100%;
+      @include rem(padding, 0 20);
+      margin: 0 auto;
       .type-txt {
         @include rem(margin-top, 80);
         color: #fff;
         @include rem(font-size, 30);
         text-align: right;
+        font-family: "Neo-Light";
+        @include rem(width, 573);
+        .highlight {
+          font-weight: unset;
+          font-family: "Mont-Light";
+          strong {
+            font-family: "Mont-Bold";
+          }
+        }
       }
     }
     .type-copy {
-      position: absolute;
-      @include rem(bottom, 30);
-      left: 50%;
       width: 100%;
       color: #fff;
       @include rem(font-size, 12);
       font-weight: 400;
       font-family: "Montserrat";
       opacity: 0.5;
-      transform: translate(-50%, 0);
       text-align: center;
+      @include rem(margin-top, 210);
     }
   }
 }
-
-@media (min-width: 1024px) and (max-width: 1500px) {
+.mo-menu {
+  display: none;
+}
+@media (min-width: 768px) and (max-width: 1500px) {
   .header {
     @include rem(padding, 0 45);
   }
@@ -455,7 +654,7 @@
 }
 
 // mo
-@media (max-width: 1024px) {
+@media screen and (max-width: 768px) {
   .pc-show {
     display: none !important;
   }
@@ -464,6 +663,15 @@
   }
   .highlight {
     @include rem(font-size, 18);
+    &::after {
+      @include rem(height, 11);
+      width: 0;
+      left: -0.5rem;
+    }
+    &.active::after {
+      width: calc(100% + 0.6rem);
+      left: -0.3rem;
+    }
   }
   .section-tit {
     .type-tit {
@@ -489,6 +697,9 @@
   }
   .header {
     @include rem(padding, 0 30);
+    .gnb-wrap {
+      padding: 0;
+    }
     .logo-area {
       h1 {
         padding-left: 0;
@@ -497,7 +708,7 @@
           @include rem(height, 34);
           padding-left: 0;
           background: url(../images/img_logo01_mo.png) no-repeat;
-          background-size: 100% auto;
+          background-size: cover;
         }
         &::before {
           display: none;
@@ -510,22 +721,31 @@
         @include rem(height, 17);
         border-radius: 0;
         background: url(../images/ico_menu.png) no-repeat;
-        background-size: 100% auto;
+        background-size: cover;
+        &:hover {
+          background-color: transparent;
+        }
       }
     }
   }
   .section-area {
     &.appropriate {
-      @include rem(padding, 110 0);
+      @include rem(padding, 120 0);
       background: #111418 url(../images/bg_section01_mo.png) no-repeat;
       background-size: 100% 100%;
       .text-area {
         .tit-box {
-          span {
-            @include rem(font-size, 34);
+          .text {
+            span {
+              @include rem(font-size, 34);
+            }
           }
         }
+        .tit-box .text:last-child {
+          @include rem(font-size, 34);
+        }
         .txt-box {
+          @include rem(margin-top, 50);
           @include rem(font-size, 18);
         }
       }
@@ -561,22 +781,31 @@
           }
           .ico {
             @include rem(width, 153);
-            @include rem(height, 195);
+            @include rem(height, 240);
+            background-size: 100% auto;
+            background-position: bottom center;
             &.ico01 {
-              background: url(../images/product_item01_mo.png) no-repeat;
-              background-size: 100% 100%;
+              background-image: url(../images/product_item01_mo.png);
             }
             &.ico02 {
-              background: url(../images/product_item02_mo.png) no-repeat;
-              background-size: 100% 100%;
+              background-image: url(../images/product_item02_mo.png);
             }
             &.ico03 {
-              background: url(../images/product_item03_mo.png) no-repeat;
-              background-size: 100% 100%;
+              background-image: url(../images/product_item03_mo.png);
             }
           }
           + .card-item {
             @include rem(margin, 40 0 0);
+          }
+          &:nth-child(2) {
+            .guide-list {
+              @include rem(width, 197);
+            }
+          }
+          &:nth-child(3) {
+            .guide-list {
+              @include rem(width, 110);
+            }
           }
         }
       }
@@ -588,7 +817,7 @@
         margin-top: 0;
         @include rem(padding, 80 0 200);
         background: url(../images/bg_section02_mo.png) no-repeat;
-        background-size: 100% auto;
+        background-size: cover;
       }
       .plan-area {
         position: relative;
@@ -610,8 +839,30 @@
               margin: 0;
               flex-direction: column;
               .guide-list {
-                margin: 0;
+                @include rem(width, 163);
+                margin: 0 auto;
+                @include rem(margin-top, 40);
+                li {
+                  text-align: left;
+                  @include rem(padding-left, 20);
+                  padding-right: 0;
+                  &::before {
+                    right: auto;
+                    left: 0;
+                  }
+                }
               }
+            }
+          }
+          &:nth-child(3) {
+            .plan-price {
+              margin-top: 0;
+            }
+            .guide-list {
+              @include rem(margin-top, 40);
+            }
+            .text {
+              @include rem(font-size, 16);
             }
           }
         }
@@ -625,18 +876,32 @@
             @include rem(font-size, 80);
             justify-content: center;
           }
+          .y-hide:nth-child(1) {
+            .ui-stagger-el.ui-set-y {
+              line-height: 1;
+              display: inline;
+            }
+          }
+          .y-hide:nth-child(2) {
+            .ui-stagger-el.ui-set-y {
+              // @include rem(margin-top, 10);
+            }
+          }
         }
         .plan-box {
           width: 100%;
-          @include rem(margin-top, 50);
           @include rem(padding-bottom, 60);
           min-height: auto;
           background: none;
           background-image: none;
           flex-direction: column;
+          .bg {
+            transform: scale(0) !important;
+          }
           @include rem(margin-left, 0);
           .plan-price {
             @include rem(font-size, 45);
+            @include rem(margin-top, 35);
           }
           .guide-list {
             @include rem(margin, 50 0 0);
@@ -648,60 +913,94 @@
       }
     }
     &.platform {
-      @include rem(padding, 0 40 130);
-      background: url(../images/bg_section04_mo.png) bottom no-repeat;
-      background-size: 100% 100%;
+      @include rem(padding, 0 40 21);
+
+      background-image: url(../images/bg_section04_mo.png);
+      background-size: 100% auto;
+      background-position: top center;
       .tit-area {
+        padding: 0;
         @include rem(padding-top, 80);
+
         .type-tit {
+          img {
+            @include rem(width, 45);
+          }
           @include rem(padding-top, 70);
-          @include rem(font-size, 34);
+          @include rem(font-size, 28);
           &::before {
             @include rem(width, 47);
             @include rem(height, 47);
             background: url(../images/img_logo01_mo.png) bottom no-repeat;
-            background-size: 100% auto;
+            background-size: cover;
           }
         }
       }
       .section-tit {
+        padding: 0;
+        @include rem(margin-top, 80);
         .type-txt {
+          @include rem(width, 244);
           @include rem(margin-top, 40);
           @include rem(font-size, 18);
           line-height: 1.4;
         }
+      }
+      .type-copy {
+        @include rem(margin-top, 100);
       }
     }
   }
   .mo-menu {
     position: fixed;
     top: 0;
-    left: 0;
+    left: 100%;
     width: 100%;
     background: #111418;
     z-index: 10;
+    display: none;
+    transition: left 0.35s cubic-bezier(0.68, 0.01, 0.22, 0.96);
+    .dimm {
+      height: 100vh;
+      width: 100%;
+      position: absolute;
+      top: 0;
+      left: 0;
+      background-color: rgba(17, 20, 24, 0.7);
+      z-index: 1;
+    }
+
     .menu-header {
       display: flex;
       @include rem(height, 80);
       @include rem(padding, 0 30);
       align-items: center;
       justify-content: space-between;
+      z-index: 2;
+      position: relative;
       .logo {
         display: block;
         @include rem(width, 36);
         @include rem(height, 34);
         background: url(../images/img_logo01_mo_on.png) no-repeat;
-        background-size: 100% auto;
+        background-size: cover;
       }
       .btn-close {
-        @include rem(width, 14);
-        @include rem(height, 14);
-        background: url(../images/ico_close.png) no-repeat;
-        background-size: 100% auto;
+        position: absolute;
+        top: 0.6rem;
+        right: 1.2rem;
+        @include rem(width, 50);
+        @include rem(height, 50);
+        background-image: url(../images/ico_close.png);
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: 1.4rem 1.4rem;
       }
     }
     .depth-area {
       @include rem(padding-bottom, 50);
+      z-index: 2;
+      position: relative;
       .depth-list {
         li {
           a {
