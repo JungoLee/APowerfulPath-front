@@ -79,14 +79,14 @@
     display: inline-block;
     background: #0d6efd;
     position: absolute;
-    bottom: 0;
-    left: 0;
+    @include rem(bottom, 5);
+    left: -0.5rem;
     z-index: -1;
     transition: 0.2s all;
   }
   &.active {
     &::after {
-      width: 100%;
+      width: calc(100% + 1rem);
       transition-delay: 0.8s;
     }
   }
@@ -116,6 +116,24 @@
     + li {
       @include rem(margin-top, 3);
     }
+    &.mo-hightlight {
+      &::before {
+        display: none;
+      }
+      @include rem(font-size, 30);
+      @include rem(margin-top, 15);
+      @include rem(margin-left, -25);
+    }
+    @media screen and (max-width: 768px) {
+      &.mo-hightlight {
+        &::before {
+          display: none;
+        }
+        @include rem(font-size, 22);
+        @include rem(margin-top, 15);
+        @include rem(margin-left, 0);
+      }
+    }
   }
   &.right-type {
     li {
@@ -138,7 +156,14 @@
   top: 0;
   left: 0;
   width: 100%;
-  z-index: 3;
+  z-index: 100;
+  background: linear-gradient(
+    to bottom,
+    rgba(0, 0, 0, 1) 0%,
+    rgba(0, 0, 0, 0.99) 1%,
+    rgba(0, 0, 0, 0) 100%
+  );
+
   .gnb-wrap {
     width: 1340px;
     @include rem(padding, 0 20);
@@ -149,28 +174,33 @@
     justify-content: space-between;
   }
   .logo-area {
+    width: 23%;
     h1 {
       position: relative;
-      @include rem(padding-left, 55);
+      display: flex;
+      align-items: center;
+      @include rem(height, 38);
       &::before {
         content: "";
-        position: absolute;
-        @include rem(top, -9);
-        left: 0;
         @include rem(width, 40);
         @include rem(height, 38);
-        background: url(../images/img_logo01.png) no-repeat;
-        background-size: cover;
+        background: url(../images/img_logo01.png);
+        @include rem(background-size, 40 38);
+        flex: 0 0 auto;
       }
     }
     .logo {
       position: relative;
       display: block;
-      @include rem(width, 245);
-      @include rem(height, 19);
+      width: 100%;
       @include rem(padding-left, 55);
-      background: url(../images/img_logo02.png) no-repeat;
+      background: url(../images/img_logo02.png);
+      background-repeat: no-repeat;
+      background-position: center;
       background-size: 100% auto;
+      height: 100%;
+      @include rem(margin-left, 10);
+      @include rem(min-width, 115);
     }
   }
   .gnb-area {
@@ -206,6 +236,7 @@
       @include rem(height, 36);
       color: #fff;
       @include rem(border-radius, 5);
+      @include rem(font-size, 12);
       background: #0d6efd;
       align-items: center;
       justify-content: center;
@@ -214,48 +245,60 @@
         background-color: #0257d5;
       }
     }
-    .btn-lang-box {
-      @include rem(margin-left, 20);
-      .btn-lang {
-        position: relative;
-        width: auto;
-        @include rem(min-width, 60);
-        @include rem(padding-right, 18);
-        @include rem(border-radius, 100);
-        background: #232a31;
-        &::after {
-          content: "";
-          position: absolute;
-          @include rem(top, 17);
-          @include rem(right, 12);
-          @include rem(width, 7);
-          @include rem(height, 4);
-          background: url(../images/ico_arrow.png) no-repeat;
-          background-size: cover;
+    .util {
+      @include rem(font-size, 12);
+      font-family: "Mont-Medium";
+      color: #fff;
+      position: relative;
+      @include rem(margin-left, 10);
+    }
+    .btn-select {
+      color: #fff;
+      @include rem(height, 28);
+      @include rem(padding, 0 12);
+      @include rem(font-size, 12);
+      @include rem(border-radius, 13);
+      background-color: #232a31;
+      line-height: 1;
+      border: 1px solid transparent;
+      transition: border-color 0.2s ease-out;
+      white-space: nowrap;
+      &.active {
+        .ico-btn-arrow {
+          background-image: url("../../assets/images/down_arrow_on.png");
         }
       }
-      .lang-list {
-        position: absolute;
-        @include rem(top, 65);
-        @include rem(padding, 10 0);
-        @include rem(border, 1 solid #9ec5fe);
-        @include rem(border-radius, 10);
-        z-index: 1;
-        .list-item {
-          color: #fff;
-          @include rem(font-size, 12);
-          font-weight: 500;
-          font-family: "Montserrat";
-          @include rem(padding, 5 21);
-        }
+    }
+    .ico-btn-arrow {
+      background-image: url("../../assets/images/down_arrow.png");
+      @include rem(width, 7);
+      @include rem(height, 4);
+      @include rem(background-size, 7 4);
+      @include rem(vertical-align, 2);
+      @include rem(margin-left, 7);
+    }
+    .select-box {
+      position: absolute;
+      top: calc(100% + 0.5rem);
+      background-color: #232a31;
+      width: 100%;
+      text-align: center;
+      @include rem(border-radius, 10);
+      @include rem(padding, 10 0);
+      display: none;
+      opacity: 0;
+      @include rem(transform, translateY(8px));
+      transition: opacity 0.2s ease-out, transform 0.2s ease-out;
+      border: 1px solid #9ec5fe;
+      &.active {
+        transition-delay: 0.2s;
+        opacity: 1;
+        @include rem(transform, translateY(0));
       }
-      &.on {
-        .btn-lang {
-          &::after {
-            transform: rotate(-180deg);
-            transition: all 0.3s;
-          }
-        }
+      button {
+        color: #fff;
+        width: 100%;
+        @include rem(padding, 5 0);
       }
     }
   }
@@ -466,7 +509,8 @@
       }
     }
     .section-tit {
-      @include rem(margin-top, -120);
+      @include rem(padding-top, 120);
+      @include rem(margin-top, -240);
       position: relative;
       overflow: hidden;
     }
@@ -480,7 +524,16 @@
       .plan-list {
         display: flex;
         align-items: center;
-
+        .plan-tit {
+          transition: color 0.2s ease-out;
+          position: relative;
+          z-index: 3;
+        }
+        &.active {
+          .plan-tit {
+            color: #fff;
+          }
+        }
         + .plan-list {
           @include rem(margin-top, 50);
         }
@@ -614,8 +667,9 @@
         color: #fff;
         @include rem(font-size, 30);
         text-align: right;
-        font-family: "Neo-Light";
+        font-family: "Neo-Thin";
         @include rem(width, 573);
+        line-height: 1.45;
         .highlight {
           font-weight: unset;
           font-family: "Mont-Light";
@@ -627,13 +681,29 @@
     }
     .type-copy {
       width: 100%;
-      color: #fff;
+      color: rgba(255, 255, 255, 0.5);
       @include rem(font-size, 12);
       font-weight: 400;
-      font-family: "Montserrat";
-      opacity: 0.5;
+      font-family: "Mont-Thin";
       text-align: center;
       @include rem(margin-top, 210);
+      letter-spacing: 0;
+      .btn-join {
+        @include rem(height, 24);
+        color: #fff;
+        font-family: "Neo-Medium";
+        @include rem(margin-left, 40);
+        @include rem(font-size, 11);
+        background-color: #0257d5;
+        @include rem(padding, 0 14);
+        display: inline-flex;
+        align-items: center;
+        @include rem(border-radius, 5);
+        transition: background-color 0.2s ease-out;
+        &:hover {
+          background-color: #0257d5;
+        }
+      }
     }
   }
 }
@@ -654,6 +724,9 @@
 }
 
 // mo
+.utill-btn-area-mo {
+  display: none;
+}
 @media screen and (max-width: 768px) {
   .pc-show {
     display: none !important;
@@ -707,6 +780,7 @@
           @include rem(width, 36);
           @include rem(height, 34);
           padding-left: 0;
+          min-width: auto;
           background: url(../images/img_logo01_mo.png) no-repeat;
           background-size: cover;
         }
@@ -833,11 +907,27 @@
           background-origin: border-box;
           background-clip: content-box, border-box;
           flex-direction: column;
+          position: relative;
+          overflow: hidden;
+          .plan-tit {
+            transition: color 0.2s ease-out;
+          }
+          .plan-box {
+            overflow: visible;
+            position: static;
+          }
+          &:hover {
+            .plan-tit {
+              position: relative;
+              color: #fff;
+            }
+          }
           &:nth-child(2) {
             flex-direction: column;
             .plan-box {
               margin: 0;
               flex-direction: column;
+
               .guide-list {
                 @include rem(width, 163);
                 margin: 0 auto;
@@ -856,7 +946,7 @@
           }
           &:nth-child(3) {
             .plan-price {
-              margin-top: 0;
+              @include rem(margin-top, 30);
             }
             .guide-list {
               @include rem(margin-top, 40);
@@ -896,7 +986,6 @@
           background-image: none;
           flex-direction: column;
           .bg {
-            transform: scale(0) !important;
           }
           @include rem(margin-left, 0);
           .plan-price {
@@ -918,6 +1007,7 @@
       background-image: url(../images/bg_section04_mo.png);
       background-size: 100% auto;
       background-position: top center;
+      @include rem(padding-bottom, 100);
       .tit-area {
         padding: 0;
         @include rem(padding-top, 80);
@@ -948,6 +1038,10 @@
       }
       .type-copy {
         @include rem(margin-top, 100);
+        @include rem(font-size, 11);
+        .btn-join {
+          display: none;
+        }
       }
     }
   }
@@ -957,7 +1051,7 @@
     left: 100%;
     width: 100%;
     background: #111418;
-    z-index: 10;
+    z-index: 101;
     display: none;
     transition: left 0.35s cubic-bezier(0.68, 0.01, 0.22, 0.96);
     .dimm {
@@ -967,7 +1061,9 @@
       top: 0;
       left: 0;
       background-color: rgba(17, 20, 24, 0.7);
+      border-bottom: 0.5rem solid #0d6efd;
       z-index: 1;
+      display: block;
     }
 
     .menu-header {
@@ -1001,6 +1097,8 @@
       @include rem(padding-bottom, 50);
       z-index: 2;
       position: relative;
+      max-height: calc(100vh - 8rem);
+      overflow: auto;
       .depth-list {
         li {
           a {
@@ -1010,29 +1108,49 @@
             @include rem(font-size, 22);
             font-weight: 500;
             text-align: center;
+            transition: color 0.2s ease-out;
+            &:hover {
+              color: #0257d5;
+            }
           }
         }
       }
-      .utill-btn-area {
-        display: flex;
-        @include rem(margin-top, 45);
-        align-items: center;
-        justify-content: center;
-        a {
-          display: inline-flex;
-          @include rem(width, 114);
-          @include rem(height, 46);
-          color: #fff;
-          @include rem(font-size, 16);
-          font-weight: 500;
-          @include rem(border-radius, 5);
-          background: #0d6efd;
-          align-items: center;
-          justify-content: center;
-          + a {
-            @include rem(margin-left, 10);
-          }
-        }
+    }
+  }
+  .utill-btn-area-mo {
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    display: flex;
+    @include rem(margin-top, 45);
+    align-items: center;
+    justify-content: center;
+    @include rem(padding, 15 12);
+    z-index: 5;
+    background: linear-gradient(
+      to top,
+      rgba(0, 0, 0, 1) 0%,
+      rgba(0, 0, 0, 0.99) 1%,
+      rgba(0, 0, 0, 0) 100%
+    );
+    a {
+      display: inline-flex;
+      @include rem(width, 114);
+      @include rem(height, 46);
+      color: #fff;
+      @include rem(font-size, 16);
+      font-weight: 500;
+      @include rem(border-radius, 5);
+      background-color: #0d6efd;
+      align-items: center;
+      justify-content: center;
+      transition: background-color 0.2s ease-out;
+      &:hover {
+        background-color: #0257d5;
+      }
+      + a {
+        @include rem(margin-left, 10);
       }
     }
   }
